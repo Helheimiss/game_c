@@ -1,0 +1,1 @@
+gcc main.c game1.c game2.c -o test.exe && test.exe
