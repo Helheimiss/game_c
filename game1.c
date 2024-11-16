@@ -36,6 +36,7 @@ int game1(void) {
                     "###### #############\n";
 
     int world_leng = sizeof(world) / sizeof(world[0]);
+    int new_pos;
 
     srand(time(NULL));
 
@@ -56,28 +57,40 @@ int game1(void) {
         int pos = GetLoc(world, world_leng);
         if (pos == -1) break;
 
+        new_pos = pos;
+
         // if (_kbhit()) {
             ch = _getch();
             if (ch == 27) {
                 break;
             }
             if (ch == 'w' && world[pos - 21] != '#') {
-                world[pos] = ' ';
-                world[pos - 21] = '*';
+                new_pos -= 21;
+                // world[pos] = ' ';
+                // world[pos - 21] = '*';
             }
             else if (ch == 'a' && world[pos - 1] != '#') {
-                world[pos] = ' ';
-                world[pos - 1] = '*';
+                new_pos -= 1;
+                // world[pos] = ' ';
+                // world[pos - 1] = '*';
             }
             else if (ch == 's' && world[pos + 21] != '#') {
-                world[pos] = ' ';
-                world[pos + 21] = '*';
+                new_pos += 21;
+                // world[pos] = ' ';
+                // world[pos + 21] = '*';
             }
             else if (ch == 'd' && world[pos + 1] != '#') {
-                world[pos] = ' ';
-                world[pos + 1] = '*';
+                new_pos += 1;
+                // world[pos] = ' ';
+                // world[pos + 1] = '*';
             }
 
+
+            if (world[new_pos] != '#')
+            {
+                world[pos] = ' ';
+                world[new_pos] = '#';
+            }
 
             // printf("You pressed: %c (ASCII: %d)\n", ch, ch);
         // }
