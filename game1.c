@@ -41,7 +41,7 @@ int game1(void)
     srand(time(NULL));
 
     for (int i = 0; i < 5; i++)
-     {
+    {
         while (1) 
         {
             int rand_loc = random_in_range(0, world_leng - 1);
@@ -54,7 +54,8 @@ int game1(void)
     }
 
     // main game
-    while (1) {
+    while (1)
+    {
         system("cls");
         printf("%s", world);
         int pos = GetLoc(world, world_leng);
