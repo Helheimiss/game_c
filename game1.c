@@ -6,7 +6,7 @@
 
 int GetLoc(char map[], int size) 
 {
-    for (int i = 0; i < 200; i++)
+    for (int i = 0; i < size; i++)
     {
         if (map[i] == '*') 
         {
@@ -24,7 +24,7 @@ int random_in_range(int min, int max)
 int game1(void) 
 {
     char ch;
-    char world[] =  "####################\n"
+    char map[] =  "####################\n"
                     "#                  #\n"
                     "#####----##        #\n"
                     "#         #        #\n"
@@ -35,8 +35,9 @@ int game1(void)
                     "#         #       *#\n"
                     "###### #############\n";
 
-    int world_leng = sizeof(world) / sizeof(world[0]);
+    int map_leng = sizeof(map) / sizeof(map[0]);
     int new_pos;
+    int where_plr;
 
     srand(time(NULL));
 
@@ -44,10 +45,10 @@ int game1(void)
      {
         while (1) 
         {
-            int rand_loc = random_in_range(0, world_leng - 1);
-            if (world[rand_loc] == ' ') 
+            int rand_loc = random_in_range(0, map_leng - 1);
+            if (map[rand_loc] == ' ') 
             {
-                world[rand_loc] = '$';
+                map[rand_loc] = '$';
                 break;
             }
         }
@@ -56,34 +57,24 @@ int game1(void)
     // main game
     while (1) {
         system("cls");
-        printf("%s", world);
-        int pos = GetLoc(world, world_leng);
-        if (pos == -1) break;
+        printf("%s", map);
+        where_plr = GetLoc(map, map_leng);
+        if (where_plr == -1) break;
 
 
         ch = _getch();
-        new_pos = pos;
-        if (ch == 27) {
-            break;
-        }
-        if (ch == 'w') {
-            new_pos -= 21;
-        }
-        else if (ch == 'a') {
-            new_pos -= 1;
-        }
-        else if (ch == 's' ) {
-            new_pos += 21;
-        }
-        else if (ch == 'd' ) {
-            new_pos += 1;
-        }
+        new_pos = where_plr;
+        if (ch == 27) break;
+        else if (ch == 'w') new_pos -= 21;
+        else if (ch == 'a') new_pos -= 1;
+        else if (ch == 's' ) new_pos += 21;
+        else if (ch == 'd' ) new_pos += 1;
 
 
-        if (world[new_pos] != '#')
+        if (map[new_pos] != '#')
         {
-            world[pos] = ' ';
-            world[new_pos] = '*';
+            map[where_plr] = ' ';
+            map[new_pos] = '*';
         }
 
         Sleep(1);
